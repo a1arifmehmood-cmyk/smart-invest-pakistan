@@ -3,90 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پاک اسمارٹ انویسٹمنٹ - 40/30/30 پلان</title>
+    <title>پاک اسمارٹ انویسٹمنٹ - فائنل ورژن</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        :root { --primary: #1b5e20; --secondary: #2e7d32; --accent: #e67e22; --bg: #f0f4f0; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: var(--bg); margin: 0; padding: 10px; color: #333; }
-        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
-        h1 { color: var(--primary); font-size: 20px; text-align: center; }
-        .input-group { background: #f9f9f9; padding: 15px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #ddd; }
-        input { width: 100%; padding: 12px; border: 2px solid #ccc; border-radius: 8px; font-size: 18px; box-sizing: border-box; text-align: center; }
-        button { background: var(--primary); color: white; border: none; padding: 15px; font-size: 16px; border-radius: 8px; width: 100%; font-weight: bold; margin-top: 10px; cursor: pointer; }
-        .result-card { display: none; margin-top: 20px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { border: 1px solid #eee; padding: 10px; text-align: center; font-size: 13px; }
-        th { background: #f1f8e9; }
+        :root { --primary: #1b5e20; --bg: #f0f4f0; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 15px; text-align: center; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        input { width: 85%; padding: 12px; margin: 10px 0; border: 2px solid #ddd; border-radius: 8px; font-size: 18px; }
+        button { background: var(--primary); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 20px; }
+        .chart-box { width: 100%; max-width: 300px; margin: 20px auto; }
+        .blueprint-img { width: 100%; border-radius: 10px; margin-top: 25px; border: 1px solid #ddd; display: block; }
         .future-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .future-card { background: var(--primary); color: white; padding: 15px; border-radius: 10px; text-align: center; }
-        .future-card span { display: block; font-size: 12px; opacity: 0.8; }
-        .future-card strong { font-size: 14px; color: #ffeb3b; }
-        .note { background: #fff3e0; padding: 10px; border-radius: 5px; font-size: 12px; margin-top: 15px; border-right: 4px solid var(--accent); }
+        .card { background: var(--primary); color: white; padding: 10px; border-radius: 8px; font-size: 12px; }
+        h3 { color: var(--primary); margin-top: 30px; border-top: 2px solid #eee; padding-top: 20px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>پاکستان اسمارٹ انویسٹمنٹ پورٹ فولیو</h1>
-    
-    <div class="input-group">
-        <label style="display:block; margin-bottom:10px; font-weight:bold;">سرمایہ کاری کی رقم درج کریں:</label>
-        <input type="number" id="investAmount" placeholder="مثلاً: 3000000" />
-        <button onclick="calculate()">پلان اور منافع چیک کریں</button>
-    </div>
+    <h2 style="color:var(--primary)">اسمارٹ انویسٹمنٹ کیلکولیٹر</h2>
+    <p>اپنی کل رقم درج کریں:</p>
+    <input type="number" id="amount" placeholder="مثلاً 5000000">
+    <button onclick="updateAll()">پلان اور گراف دیکھیں</button>
 
-    <div id="results" class="result-card">
-        <h3>رقم کی تقسیم (40/30/30):</h3>
-        <table>
-            <tr><th>کیش فنڈ (40%)</th><th>انڈیکس (30%)</th><th>اسٹاک (30%)</th></tr>
-            <tr>
-                <td id="c1">0</td>
-                <td id="c2">0</td>
-                <td id="c3">0</td>
-            </tr>
-        </table>
-
-        <h3>مستقبل کا تخمینہ (Compounding):</h3>
+    <div id="showResults" style="display:none">
+        <div class="chart-box"><canvas id="myChart"></canvas></div>
+        
         <div class="future-grid">
-            <div class="future-card">
-                <span>5 سال بعد</span>
-                <strong id="f5">0</strong>
-            </div>
-            <div class="future-card" style="background:#2e7d32;">
-                <span>10 سال بعد</span>
-                <strong id="f10">0</strong>
-            </div>
-            <div class="future-card" style="background:#154316;">
-                <span>20 سال بعد</span>
-                <strong id="f20">0</strong>
-            </div>
+            <div class="card">5 سال بعد<br><strong id="y5">0</strong></div>
+            <div class="card">10 سال بعد<br><strong id="y10">0</strong></div>
+            <div class="card">20 سال بعد<br><strong id="y20">0</strong></div>
         </div>
 
-        <div class="note">
-            <strong>ضروری نوٹ:</strong> یہ حساب 14% سالانہ اوسط منافع کی بنیاد پر لگایا گیا ہے۔ اصل منافع مارکیٹ کی تبدیلیوں کے ساتھ کم یا زیادہ ہو سکتا ہے۔
-        </div>
+        <h3>انویسٹمنٹ بلو پرنٹ (تفصیل):</h3>
+        <img src="Screenshot_20260404-230236.png" class="blueprint-img" alt="Investment Blueprint">
     </div>
 </div>
 
 <script>
-    function calculate() {
-        let amount = parseFloat(document.getElementById('investAmount').value);
-        if(!amount || amount < 1000) return alert("درست رقم لکھیں");
+let chart = null;
+function updateAll() {
+    let val = document.getElementById('amount').value;
+    if(!val || val <= 0) { alert("براہ کرم درست رقم درج کریں"); return; }
+    
+    document.getElementById('showResults').style.display = 'block';
+    
+    // 14% سالانہ منافع کے حساب سے تخمینہ
+    const calc = (y) => Math.round(val * Math.pow(1.14, y)).toLocaleString();
+    document.getElementById('y5').innerText = "Rs " + calc(5);
+    document.getElementById('y10').innerText = "Rs " + calc(10);
+    document.getElementById('y20').innerText = "Rs " + calc(20);
 
-        // Allocations
-        document.getElementById('c1').innerText = Math.round(amount * 0.4).toLocaleString();
-        document.getElementById('c2').innerText = Math.round(amount * 0.3).toLocaleString();
-        document.getElementById('c3').innerText = Math.round(amount * 0.3).toLocaleString();
-
-        // Future Values (using 14% average)
-        const rate = 0.14;
-        const fv = (y) => Math.round(amount * Math.pow((1 + rate), y)).toLocaleString();
-
-        document.getElementById('f5').innerText = "روپے " + fv(5);
-        document.getElementById('f10').innerText = "روپے " + fv(10);
-        document.getElementById('f20').innerText = "روپے " + fv(20);
-
-        document.getElementById('results').style.display = 'block';
-    }
+    // گراف اپ ڈیٹ کریں
+    const ctx = document.getElementById('myChart').getContext('2d');
+    if(chart) chart.destroy();
+    chart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['سیف فنڈ (40%)', 'انڈیکس (30%)', 'اسٹاک (30%)'],
+            datasets: [{ 
+                data: [val*0.4, val*0.3, val*0.3], 
+                backgroundColor: ['#2e7d32', '#43a047', '#fb8c00'] 
+            }]
+        },
+        options: { plugins: { legend: { position: 'bottom', rtl: true } } }
+    });
+    
+    // اسکرول کر کے نتائج دکھائیں
+    window.scrollTo({ top: 500, behavior: 'smooth' });
+}
 </script>
 
 </body>

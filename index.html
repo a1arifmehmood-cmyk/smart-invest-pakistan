@@ -4,102 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="_dYcldSVUr3Fijj4dKcyLT8jasPDsDwyUPjbo5kLMjs" />
-    <title>پاک اسمارٹ انویسٹمنٹ - مکمل گائیڈ</title>
+    <title>پاک اسمارٹ انویسٹمنٹ</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root { --primary: #1b5e20; --gold: #c5a059; --dark: #0a192f; --bg: #f8faf8; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 0; color: #333; text-align: right; line-height: 1.6; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 0; text-align: right; line-height: 1.6; }
         .container { max-width: 600px; margin: auto; padding: 15px; }
         header { background: var(--dark); color: white; padding: 30px 15px; border-bottom: 5px solid var(--gold); border-radius: 0 0 25px 25px; text-align: center; margin-bottom: 25px; }
-        header h1 { margin: 0; font-size: 24px; color: var(--gold); }
-        .calc-card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); margin-bottom: 30px; border: 1px solid #eee; }
-        input { width: 90%; padding: 12px; margin: 15px 0; border: 2px solid #ddd; border-radius: 10px; font-size: 18px; text-align: center; }
-        #results { display: none; }
-        .result-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 15px; }
-        .res-box { background: var(--dark); color: white; padding: 10px; border-radius: 8px; font-size: 11px; text-align: center; border-bottom: 3px solid var(--gold); }
-        .res-box span { color: var(--gold); display: block; }
-        .future-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px; }
-        .future-box { background: #e8f5e9; padding: 12px; border-radius: 10px; text-align: center; border: 1px solid #c8e6c9; }
-        .step-card { background: white; border-radius: 15px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #eee; }
-        .step-img { width: 100%; height: auto; display: block; border-bottom: 3px solid var(--gold); }
+        .calc-card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); margin-bottom: 30px; }
+        input { width: 90%; padding: 12px; margin: 15px 0; border: 2px solid #ddd; border-radius: 10px; text-align: center; font-size: 18px; }
+        .step-card { background: white; border-radius: 15px; margin-bottom: 25px; overflow: hidden; border: 1px solid #eee; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .step-img { width: 100%; height: auto; display: block; border-bottom: 3px solid var(--gold); min-height: 150px; background: #f0f0f0; }
         .step-content { padding: 15px; }
-        .step-content h2 { color: var(--primary); font-size: 18px; margin: 0 0 8px 0; }
-        .step-content p { font-size: 14px; color: #444; margin: 0; }
-        .footer { text-align: center; padding: 30px; color: #999; font-size: 12px; border-top: 1px solid #eee; }
+        .step-content h2 { color: var(--primary); font-size: 18px; margin-top: 0; }
+        #results { display: none; }
+        .res-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 15px; }
+        .res-box { background: var(--dark); color: white; padding: 10px; border-radius: 8px; font-size: 11px; text-align: center; border-bottom: 3px solid var(--gold); }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>پاکستان اسمارٹ انویسٹمنٹ</h1>
-    <p>شریعہ کمپلائنٹ دولت سازی کا مکمل روڈ میپ</p>
+    <h1 style="color:var(--gold); margin:0;">پاکستان اسمارٹ انویسٹمنٹ</h1>
+    <p>شریعہ کمپلائنٹ دولت سازی کا روڈ میپ</p>
 </header>
 
 <div class="container">
     <div class="calc-card">
-        <h2 style="text-align:center; color:var(--primary); margin-top:0;">انویسٹمنٹ کیلکولیٹر</h2>
-        <input type="number" id="investAmount" placeholder="اپنی رقم یہاں لکھیں..." oninput="calculate()">
+        <h2 style="text-align:center; color:var(--primary);">انویسٹمنٹ کیلکولیٹر</h2>
+        <input type="number" id="investAmount" placeholder="رقم یہاں لکھیں..." oninput="calculate()">
         <div id="results">
-            <div style="max-width: 180px; margin: 15px auto;"><canvas id="investChart"></canvas></div>
-            <div class="result-grid">
-                <div class="res-box"><span>سیفٹی نیٹ</span><strong id="safeNet">0</strong></div>
-                <div class="res-box"><span>انڈیکس فنڈ</span><strong id="indexFund">0</strong></div>
-                <div class="res-box"><span>ایکویٹی فنڈ</span><strong id="equityFund">0</strong></div>
-            </div>
-            <h3 style="text-align: center; color: var(--primary); margin-top: 25px; font-size: 16px;">مستقبل کا تخمینہ (14%)</h3>
-            <div class="future-grid">
-                <div class="future-box"><span>5 سال بعد</span><br><strong id="y5">0</strong></div>
-                <div class="future-box"><span>10 سال بعد</span><br><strong id="y10">0</strong></div>
-                <div class="future-box"><span>15 سال بعد</span><br><strong id="y15">0</strong></div>
-                <div class="future-box"><span>20 سال بعد</span><br><strong id="y20">0</strong></div>
+            <div style="max-width: 150px; margin: auto;"><canvas id="investChart"></canvas></div>
+            <div class="res-grid">
+                <div class="res-box">سیفٹی نیٹ<br><strong id="safeNet">0</strong></div>
+                <div class="res-box">انڈیکس فنڈ<br><strong id="indexFund">0</strong></div>
+                <div class="res-box">ایکویٹی فنڈ<br><strong id="equityFund">0</strong></div>
             </div>
         </div>
     </div>
 
-    <h2 style="text-align: center; margin-bottom: 25px; color: var(--dark);">انویسٹمنٹ ماسٹر گائیڈ</h2>
+    <h2 style="text-align: center; color: var(--dark);">انویسٹمنٹ ماسٹر گائیڈ</h2>
 
     <div class="step-card">
-        <img src="Screenshot_20260405-231855 (1).png" class="step-img" alt="Master Plan">
+        <img src="Screenshot_20260405-231855%20(1).png" class="step-img" alt="Plan">
         <div class="step-content">
-            <h2>50 لاکھ کا بلو پرنٹ: ماسٹر پلان</h2>
-            <p>شریعہ کمپلائنٹ دولت سازی کے لیے ایک بہترین 40/30/30 حکمت عملی۔</p>
+            <h2>50 لاکھ کا ماسٹر پلان</h2>
+            <p>40/30/30 کی حکمت عملی کے ساتھ محفوظ سرمایہ کاری۔</p>
         </div>
     </div>
 
     <div class="step-card">
-        <img src="Screenshot_20260405-225141 (1).png" class="step-img" alt="Process">
+        <img src="Screenshot_20260405-225141%20(1).png" class="step-img" alt="Process">
         <div class="step-content">
-            <h2>رجسٹریشن اور عمل درآمد</h2>
-            <p>گوگل سرچ کنسول پر رجسٹریشن اور یو آر ایل پری فکس کا طریقہ۔</p>
+            <h2>رجسٹریشن کا طریقہ</h2>
+            <p>گوگل سرچ کنسول پر اپنی ویب سائٹ رجسٹر کرنے کا پہلا قدم۔</p>
         </div>
     </div>
 
     <div class="step-card">
-        <img src="Screenshot_20260405-211809 (1).png" class="step-img" alt="Verification">
+        <img src="Screenshot_20260405-211809%20(1).png" class="step-img" alt="Verify">
         <div class="step-content">
-            <h2>گوگل سرچ کنسول سیٹ اپ</h2>
-            <p>میٹا ٹیگ کے ذریعے اپنی ویب سائٹ کی ملکیت کی تصدیق کریں۔</p>
+            <h2>ملکیت کی تصدیق</h2>
+            <p>میٹا ٹیگ کے ذریعے اپنی ویب سائٹ کو گوگل سے ویریفائی کریں۔</p>
         </div>
     </div>
 
     <div class="step-card">
-        <img src="Screenshot_20260405-225557 (1).png" class="step-img" alt="Performance">
+        <img src="Screenshot_20260405-225557%20(1).png" class="step-img" alt="Growth">
         <div class="step-content">
-            <h2>پرفارمنس اور گروتھ ٹریکنگ</h2>
-            <p>گوگل ان سائٹس کے ذریعے اپنی ویب سائٹ کی ٹریفک چیک کریں۔</p>
+            <h2>پرفارمنس ٹریکنگ</h2>
+            <p>اپنی انویسٹمنٹ اور ویب سائٹ کی گروتھ پر نظر رکھیں۔</p>
         </div>
     </div>
 
     <div class="step-card">
-        <img src="Screenshot_20260405-211859 (1).png" class="step-img" alt="Technical">
+        <img src="Screenshot_20260405-211859%20(1).png" class="step-img" alt="Technical">
         <div class="step-content">
-            <h2>ٹیکنیکل اونرشپ ویریفیکیشن</h2>
-            <p>ایچ ٹی ایم ایل ٹیگ کو ہیڈ سیکشن میں لگانے کا مکمل عمل۔</p>
+            <h2>تکنیکی سیٹ اپ</h2>
+            <p>ویب سائٹ کو سرچ انجن کے لیے موزوں بنانے کا عمل۔</p>
         </div>
-    </div>
-
-    <div class="footer">
-        <p>© 2026 پاک اسمارٹ انویسٹمنٹ | تمام حقوق محفوظ ہیں</p>
     </div>
 </div>
 
@@ -113,15 +96,11 @@
         document.getElementById('safeNet').innerText = Math.round(safe).toLocaleString();
         document.getElementById('indexFund').innerText = Math.round(idx).toLocaleString();
         document.getElementById('equityFund').innerText = Math.round(eq).toLocaleString();
-        const fv = (y) => Math.round(amount * Math.pow(1.14, y)).toLocaleString();
-        document.getElementById('y5').innerText = fv(5); document.getElementById('y10').innerText = fv(10);
-        document.getElementById('y15').innerText = fv(15); document.getElementById('y20').innerText = fv(20);
         const ctx = document.getElementById('investChart').getContext('2d');
         if (myChart) myChart.destroy();
         myChart = new Chart(ctx, {
             type: 'doughnut',
-            data: { labels: ['سیفٹی', 'انڈیکس', 'ایکویٹی'], datasets: [{ data: [safe, idx, eq], backgroundColor: ['#1b5e20', '#c5a059', '#0a192f'], borderWidth: 0 }] },
-            options: { plugins: { legend: { display: false } } }
+            data: { datasets: [{ data: [safe, idx, eq], backgroundColor: ['#1b5e20', '#c5a059', '#0a192f'] }] }
         });
     }
 </script>

@@ -3,38 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <meta name="google-site-verification" content="_dYcldSVUr3Fijj4dKcyLT8jasPDsDwyUPjbo5kLMjs" />
-    
-    <title>پاک اسمارٹ انویسٹمنٹ - 50 لاکھ روپے کا مکمل بلو پرنٹ</title>
+    <title>پاک اسمارٹ انویسٹمنٹ - مکمل گائیڈ</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root { --primary: #1b5e20; --gold: #c5a059; --dark: #0a192f; --bg: #f8faf8; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 0; color: #333; line-height: 1.8; text-align: right; }
-        .container { max-width: 650px; margin: auto; padding: 15px; }
-        
-        header { background: var(--dark); color: white; padding: 40px 15px; border-bottom: 5px solid var(--gold); border-radius: 0 0 30px 30px; margin-bottom: 30px; text-align: center; }
-        header h1 { margin: 0; font-size: 26px; color: var(--gold); }
-
-        .calc-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 30px; border: 1px solid #eee; }
-        input { width: 90%; padding: 15px; margin: 15px 0; border: 2px solid #ddd; border-radius: 12px; font-size: 20px; text-align: center; background: #fdfdfd; }
-        
-        #results { display: none; animation: fadeIn 0.5s; }
-        .result-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .res-box { background: var(--dark); color: white; padding: 12px; border-radius: 10px; font-size: 13px; text-align: center; border-bottom: 3px solid var(--gold); }
-        .res-box span { color: var(--gold); display: block; margin-bottom: 5px; }
-
-        .future-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .future-box { background: #e8f5e9; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #c8e6c9; }
-        .future-box span { display: block; font-size: 14px; color: var(--primary); font-weight: bold; }
-        .future-box strong { font-size: 18px; color: var(--dark); }
-
-        .step-card { background: white; padding: 25px; border-radius: 15px; margin-bottom: 25px; border-right: 6px solid var(--gold); box-shadow: 0 5px 15px rgba(0,0,0,0.03); position: relative; }
-        .step-num { background: var(--gold); color: var(--dark); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; position: absolute; top: -15px; right: -15px; border: 3px solid var(--bg); }
-        .step-card h2 { margin: 0 0 10px 0; font-size: 20px; color: var(--primary); }
-        
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .footer { text-align: center; padding: 40px 15px; color: #888; font-size: 13px; border-top: 1px solid #eee; margin-top: 50px; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 0; color: #333; text-align: right; line-height: 1.6; }
+        .container { max-width: 600px; margin: auto; padding: 15px; }
+        header { background: var(--dark); color: white; padding: 30px 15px; border-bottom: 5px solid var(--gold); border-radius: 0 0 25px 25px; text-align: center; margin-bottom: 25px; }
+        header h1 { margin: 0; font-size: 24px; color: var(--gold); }
+        .calc-card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); margin-bottom: 30px; border: 1px solid #eee; }
+        input { width: 90%; padding: 12px; margin: 15px 0; border: 2px solid #ddd; border-radius: 10px; font-size: 18px; text-align: center; }
+        #results { display: none; }
+        .result-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 15px; }
+        .res-box { background: var(--dark); color: white; padding: 10px; border-radius: 8px; font-size: 11px; text-align: center; border-bottom: 3px solid var(--gold); }
+        .res-box span { color: var(--gold); display: block; }
+        .future-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px; }
+        .future-box { background: #e8f5e9; padding: 12px; border-radius: 10px; text-align: center; border: 1px solid #c8e6c9; }
+        .step-card { background: white; border-radius: 15px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #eee; }
+        .step-img { width: 100%; height: auto; display: block; border-bottom: 3px solid var(--gold); }
+        .step-content { padding: 15px; }
+        .step-content h2 { color: var(--primary); font-size: 18px; margin: 0 0 8px 0; }
+        .step-content p { font-size: 14px; color: #444; margin: 0; }
+        .footer { text-align: center; padding: 30px; color: #999; font-size: 12px; border-top: 1px solid #eee; }
     </style>
 </head>
 <body>
@@ -46,52 +37,65 @@
 
 <div class="container">
     <div class="calc-card">
-        <h2 style="color:var(--primary); margin-top:0; text-align: center;">انویسٹمنٹ کیلکولیٹر</h2>
-        <p style="text-align: center;">اپنی کل رقم درج کریں (مثلاً 5000000):</p>
-        <input type="number" id="investAmount" placeholder="رقم یہاں لکھیں..." oninput="calculate()">
-        
+        <h2 style="text-align:center; color:var(--primary); margin-top:0;">انویسٹمنٹ کیلکولیٹر</h2>
+        <input type="number" id="investAmount" placeholder="اپنی رقم یہاں لکھیں..." oninput="calculate()">
         <div id="results">
-            <div style="max-width: 220px; margin: 20px auto;">
-                <canvas id="investChart"></canvas>
-            </div>
+            <div style="max-width: 180px; margin: 15px auto;"><canvas id="investChart"></canvas></div>
             <div class="result-grid">
-                <div class="res-box"><span>سیفٹی نیٹ (40%)</span><strong id="safeNet">0</strong></div>
-                <div class="res-box"><span>انڈیکس فنڈ (30%)</span><strong id="indexFund">0</strong></div>
-                <div class="res-box"><span>ایکویٹی فنڈ (30%)</span><strong id="equityFund">0</strong></div>
+                <div class="res-box"><span>سیفٹی نیٹ</span><strong id="safeNet">0</strong></div>
+                <div class="res-box"><span>انڈیکس فنڈ</span><strong id="indexFund">0</strong></div>
+                <div class="res-box"><span>ایکویٹی فنڈ</span><strong id="equityFund">0</strong></div>
             </div>
-            <h3 style="text-align: center; color: var(--primary); margin-top: 30px;">تخمینہ برائے مستقبل (14% سالانہ)</h3>
+            <h3 style="text-align: center; color: var(--primary); margin-top: 25px; font-size: 16px;">مستقبل کا تخمینہ (14%)</h3>
             <div class="future-grid">
-                <div class="future-box"><span>5 سال بعد</span><strong id="y5">0</strong></div>
-                <div class="future-box"><span>10 سال بعد</span><strong id="y10">0</strong></div>
-                <div class="future-box"><span>15 سال بعد</span><strong id="y15">0</strong></div>
-                <div class="future-box"><span>20 سال بعد</span><strong id="y20">0</strong></div>
+                <div class="future-box"><span>5 سال بعد</span><br><strong id="y5">0</strong></div>
+                <div class="future-box"><span>10 سال بعد</span><br><strong id="y10">0</strong></div>
+                <div class="future-box"><span>15 سال بعد</span><br><strong id="y15">0</strong></div>
+                <div class="future-box"><span>20 سال بعد</span><br><strong id="y20">0</strong></div>
             </div>
         </div>
     </div>
 
-    <h2 style="text-align: center; color: var(--dark); margin: 40px 0 30px 0;">انویسٹمنٹ بلو پرنٹ: 15 ماسٹر پوائنٹس</h2>
+    <h2 style="text-align: center; margin-bottom: 25px; color: var(--dark);">انویسٹمنٹ ماسٹر گائیڈ</h2>
 
-    <div class="step-container">
-        <div class="step-card"><div class="step-num">1</div><h2>50 لاکھ کا بلو پرنٹ: ماسٹر پلان</h2><p>شریعہ کمپلائنٹ دولت سازی کے لیے ایک بہترین 40/30/30 حکمت عملی۔ یہ پلان سیفٹی، گروتھ اور پروفیشنل مینجمنٹ کا بہترین امتزاج ہے۔</p></div>
-        <div class="step-card"><div class="step-num">2</div><h2>بیلنس: مالی پریشانی کا حل</h2><p>آپ نہ تو مکمل طور پر محفوظ کھیل رہے ہیں اور نہ ہی حد سے زیادہ خطرہ لے رہے ہیں۔ آپ دونوں کام ایک ساتھ اور منظم طریقے سے کر رہے ہیں۔</p></div>
-        <div class="step-card"><div class="step-num">3</div><h2>آپ کے 50 لاکھ کی ساخت</h2><p>40% (20 لاکھ): سیفٹی نیٹ۔ 30% (15 لاکھ): مارکیٹ الائنمنٹ۔ 30% (15 لاکھ): ایگریسو گروتھ۔</p></div>
-        <div class="step-card"><div class="step-num">4</div><h2>پہلا ستون: سیفٹی نیٹ (40%)</h2><p>20 لاکھ روپے اسلامک منی مارکیٹ فنڈ میں رکھیں۔ اس کا مقصد اصل سرمائے کا تحفظ اور روزانہ یا ماہانہ منافع حاصل کرنا ہے۔</p></div>
-        <div class="step-card"><div class="step-num">5</div><h2>دوسرا ستون: مارکیٹ الائنمنٹ (30%)</h2><p>15 لاکھ روپے اسلامک انڈیکس فنڈ (KMI-30) میں۔ یہ فنڈ پاکستان کی ٹاپ 30 شریعہ کمپلائنٹ کمپنیوں میں سرمایہ کاری کرتا ہے۔</p></div>
-        <div class="step-card"><div class="step-num">6</div><h2>تیسرا ستون: ایگریسو گروتھ (30%)</h2><p>15 لاکھ روپے ایکٹو اسلامک ایکویٹی فنڈ میں۔ یہاں پروفیشنل فنڈ مینیجر مارکیٹ سے بہتر منافع کے لیے بہترین کمپنیوں کا انتخاب کرتا ہے۔</p></div>
-        <div class="step-card"><div class="step-num">7</div><h2>گڈ سے پرفیکٹ کی طرف سفر</h2><p>40/30/30 کی تقسیم صرف گاڑی ہے۔ چار ایگزیکیوشن رولز اس کا انجن ہیں جو آپ کے منافع کو بہترین بناتے ہیں۔</p></div>
-        <div class="step-card"><div class="step-num">8</div><h2>آپٹیمائزیشن 1: بتدریج انٹری</h2><p>کبھی بھی سارا پیسہ ایک دن میں نہ لگائیں۔ 50% آج لگائیں اور باقی 50% اگلے 2 سے 3 ماہ میں قسطوں میں لگائیں۔</p></div>
-        <div class="step-card"><div class="step-num">9</div><h2>آپٹیمائزیشن 2: ری بیلنسنگ انجن</h2><p>ہر 6 ماہ بعد جائزہ لیں۔ اگر کوئی حصہ 10% سے زیادہ بڑھ جائے تو منافع نکال کر دوسرے حصے میں ڈال دیں تاکہ توازن برقرار رہے۔</p></div>
-        <div class="step-card"><div class="step-num">10</div><h2>آپٹیمائزیشن 3: ٹیکس شیلڈ</h2><p>سرمایہ کاری کو میاں بیوی کے درمیان تقسیم کریں تاکہ ٹیکس بریکٹ کی کارکردگی بہتر ہو اور آپ کو زیادہ منافع مل سکے۔</p></div>
-        <div class="step-card"><div class="step-num">11</div><h2>آپٹیمائزیشن 4: ادارے کی تقسیم</h2><p>سارا پیسہ ایک ہی ادارے (AMC) میں نہ رکھیں۔ اسے دو بڑے اداروں (مثلاً الیزان اور ایم سی بی عارف حبیب) میں تقسیم کریں۔</p></div>
-        <div class="step-card"><div class="step-num">12</div><h2>گولڈن رول: 5 سال کا صبر</h2><p>سرمایہ کاری کے اصل پیسے کو 5 سال تک ہاتھ نہ لگائیں۔ حقیقی دولت 20% حکمت عملی اور 80% صبر سے بنتی ہے۔</p></div>
-        <div class="step-card"><div class="step-num">13</div><h2>سمارٹ پالش: فیس چیک کریں</h2><p>یقینی بنائیں کہ فنڈ مینیجمنٹ فیس 1.5% سے 2% کے درمیان ہو۔ اس سے زیادہ فیس آپ کے منافع کو کھا سکتی ہے۔</p></div>
-        <div class="step-card"><div class="step-num">14</div><h2>10 منٹ میں عمل درآمد</h2><p>پہلے ایمرجنسی فنڈ الگ کریں، پھر کسی بڑے میوچل فنڈ ہاؤس سے رابطہ کریں اور انہیں یہ بلو پرنٹ تھما دیں۔</p></div>
-        <div class="step-card"><div class="step-num">15</div><h2>آخری فیصلہ: اب آپ کی باری</h2><p>یہ پلان سادہ، محفوظ اور انتہائی بہتر بنایا گیا ہے۔ اب صرف آپ کے عمل درآمد کی دیر ہے۔ آج ہی شروعات کریں!</p></div>
+    <div class="step-card">
+        <img src="Screenshot_20260405-231855.png" class="step-img" alt="Master Plan">
+        <div class="step-content">
+            <h2>50 لاکھ کا بلو پرنٹ: ماسٹر پلان</h2>
+            <p>شریعہ کمپلائنٹ دولت سازی کے لیے ایک بہترین 40/30/30 حکمت عملی۔ یہ پلان سیفٹی، گروتھ اور پروفیشنل مینجمنٹ کا امتزاج ہے۔</p>
+        </div>
     </div>
 
-    <div class="calc-card" style="border-right: 6px solid var(--primary);">
-        <h2 style="color:var(--primary)">خلاصہ اور نتیجہ</h2>
-        <p>پاکستان میں مہنگائی کے اس دور میں دولت کو صرف بچانا کافی نہیں، بلکہ اسے صحیح طریقے سے انویسٹ کرنا ضروری ہے۔ یہ کیلکولیٹر اور 15 مراحل کا بلو پرنٹ آپ کو وہ تمام اوزار فراہم کرتا ہے جو ایک کامیاب سرمایہ کار بننے کے لیے ضروری ہیں۔</p>
+    <div class="step-card">
+        <img src="Screenshot_20260405-225141.png" class="step-img" alt="Process">
+        <div class="step-content">
+            <h2>رجسٹریشن اور عمل درآمد</h2>
+            <p>گوگل پر رجسٹریشن اور آپ کے مالیاتی اہداف کی تکمیل کا سفر یہاں سے شروع ہوتا ہے۔</p>
+        </div>
+    </div>
+
+    <div class="step-card">
+        <img src="Screenshot_20260405-211809.png" class="step-img" alt="Verification">
+        <div class="step-content">
+            <h2>گوگل سرچ کنسول سیٹ اپ</h2>
+            <p>آپ کی ویب سائٹ اب گوگل کی نظر میں معتبر ہو چکی ہے اور سرچ رزلٹس میں جگہ بنانے کے لیے تیار ہے۔</p>
+        </div>
+    </div>
+
+    <div class="step-card">
+        <img src="Screenshot_20260405-225557.png" class="step-img" alt="Performance">
+        <div class="step-content">
+            <h2>پرفارمنس اور گروتھ ٹریکنگ</h2>
+            <p>وقت کے ساتھ اپنی سرمایہ کاری اور ویب سائٹ کی ٹریفک کا جائزہ لیں تاکہ آپ ہمیشہ منافع میں رہیں۔</p>
+        </div>
+    </div>
+
+    <div class="step-card">
+        <img src="Screenshot_20260405-211859.png" class="step-img" alt="Verification Technical">
+        <div class="step-content">
+            <h2>تکنیکی درستگی</h2>
+            <p>ہر مرحلے کی باریک بینی سے جانچ کی گئی ہے تاکہ آپ کو ایک محفوظ اور تیز رفتار تجربہ مل سکے۔</p>
+        </div>
     </div>
 
     <div class="footer">
@@ -106,14 +110,12 @@
         if (!amount || amount <= 0) return;
         document.getElementById('results').style.display = 'block';
         const safe = amount * 0.4; const idx = amount * 0.3; const eq = amount * 0.3;
-        document.getElementById('safeNet').innerText = "Rs " + Math.round(safe).toLocaleString();
-        document.getElementById('indexFund').innerText = "Rs " + Math.round(idx).toLocaleString();
-        document.getElementById('equityFund').innerText = "Rs " + Math.round(eq).toLocaleString();
+        document.getElementById('safeNet').innerText = Math.round(safe).toLocaleString();
+        document.getElementById('indexFund').innerText = Math.round(idx).toLocaleString();
+        document.getElementById('equityFund').innerText = Math.round(eq).toLocaleString();
         const fv = (y) => Math.round(amount * Math.pow(1.14, y)).toLocaleString();
-        document.getElementById('y5').innerText = "Rs " + fv(5);
-        document.getElementById('y10').innerText = "Rs " + fv(10);
-        document.getElementById('y15').innerText = "Rs " + fv(15);
-        document.getElementById('y20').innerText = "Rs " + fv(20);
+        document.getElementById('y5').innerText = fv(5); document.getElementById('y10').innerText = fv(10);
+        document.getElementById('y15').innerText = fv(15); document.getElementById('y20').innerText = fv(20);
         const ctx = document.getElementById('investChart').getContext('2d');
         if (myChart) myChart.destroy();
         myChart = new Chart(ctx, {

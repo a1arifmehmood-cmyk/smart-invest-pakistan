@@ -3,37 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اسمارٹ انویسٹمنٹ پاکستان - 50 لاکھ بلو پرنٹ</title>
+    <title>پاک اسمارٹ انویسٹمنٹ - مکمل بلو پرنٹ</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root { --primary: #1b5e20; --gold: #c5a059; --dark: #0a192f; --bg: #f8faf8; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 0; color: #333; line-height: 1.8; text-align: right; }
         .container { max-width: 650px; margin: auto; padding: 15px; }
         
-        /* Header */
         header { background: var(--dark); color: white; padding: 40px 15px; border-bottom: 5px solid var(--gold); border-radius: 0 0 30px 30px; margin-bottom: 30px; text-align: center; }
         header h1 { margin: 0; font-size: 26px; color: var(--gold); }
 
-        /* Calculator Card */
-        .calc-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 40px; border: 1px solid #eee; }
+        .calc-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 30px; border: 1px solid #eee; }
         input { width: 90%; padding: 15px; margin: 15px 0; border: 2px solid #ddd; border-radius: 12px; font-size: 20px; text-align: center; background: #fdfdfd; }
-        button { background: var(--primary); color: white; border: none; padding: 18px; width: 100%; border-radius: 12px; font-weight: bold; font-size: 18px; cursor: pointer; }
-
-        /* Chart Result Section */
-        #results { display: none; margin-top: 20px; animation: fadeIn 0.5s; }
+        
+        #results { display: none; animation: fadeIn 0.5s; }
         .result-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 20px; }
         .res-box { background: var(--dark); color: white; padding: 12px; border-radius: 10px; font-size: 13px; text-align: center; border-bottom: 3px solid var(--gold); }
         .res-box span { color: var(--gold); display: block; margin-bottom: 5px; }
 
-        /* Step-by-Step Blueprint (Vertical List) */
-        .step-container { margin-top: 50px; position: relative; }
+        /* Future Growth Table */
+        .future-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .future-box { background: #e8f5e9; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #c8e6c9; }
+        .future-box span { display: block; font-size: 14px; color: var(--primary); font-weight: bold; }
+        .future-box strong { font-size: 18px; color: var(--dark); }
+
         .step-card { background: white; padding: 25px; border-radius: 15px; margin-bottom: 25px; border-right: 6px solid var(--gold); box-shadow: 0 5px 15px rgba(0,0,0,0.03); position: relative; }
         .step-num { background: var(--gold); color: var(--dark); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; position: absolute; top: -15px; right: -15px; border: 3px solid var(--bg); }
         .step-card h2 { margin: 0 0 10px 0; font-size: 20px; color: var(--primary); }
-        .step-card p { margin: 0; color: #444; font-size: 16px; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .footer { text-align: center; padding: 40px 15px; color: #888; font-size: 13px; border-top: 1px solid #eee; margin-top: 50px; }
     </style>
 </head>
@@ -41,28 +39,37 @@
 
 <header>
     <h1>پاکستان اسمارٹ انویسٹمنٹ</h1>
-    <p>50 لاکھ روپے کا مکمل انویسٹمنٹ بلو پرنٹ</p>
+    <p>شریعہ کمپلائنٹ دولت سازی کا مکمل روڈ میپ</p>
 </header>
 
 <div class="container">
     <div class="calc-card">
-        <h2 style="color:var(--primary); margin-top:0;">انویسٹمنٹ کیلکولیٹر</h2>
-        <p>اپنی کل سرمایہ کاری کی رقم لکھیں:</p>
-        <input type="number" id="investAmount" placeholder="مثلاً 5000000" oninput="calculate()">
+        <h2 style="color:var(--primary); margin-top:0; text-align: center;">انویسٹمنٹ کیلکولیٹر</h2>
+        <p style="text-align: center;">اپنی کل رقم درج کریں (مثلاً 5000000):</p>
+        <input type="number" id="investAmount" placeholder="رقم یہاں لکھیں..." oninput="calculate()">
         
         <div id="results">
-            <div style="max-width: 250px; margin: 20px auto;">
+            <div style="max-width: 220px; margin: 20px auto;">
                 <canvas id="investChart"></canvas>
             </div>
+
             <div class="result-grid">
-                <div class="res-box"><span>سیفٹی (40%)</span><strong id="safeNet">0</strong></div>
-                <div class="res-box"><span>انڈیکس (30%)</span><strong id="indexFund">0</strong></div>
-                <div class="res-box"><span>ایکویٹی (30%)</span><strong id="equityFund">0</strong></div>
+                <div class="res-box"><span>سیفٹی نیٹ (40%)</span><strong id="safeNet">0</strong></div>
+                <div class="res-box"><span>انڈیکس فنڈ (30%)</span><strong id="indexFund">0</strong></div>
+                <div class="res-box"><span>ایکویٹی فنڈ (30%)</span><strong id="equityFund">0</strong></div>
+            </div>
+
+            <h3 style="text-align: center; color: var(--primary); margin-top: 30px;">تخمینہ برائے مستقبل (14% سالانہ)</h3>
+            <div class="future-grid">
+                <div class="future-box"><span>5 سال بعد</span><strong id="y5">0</strong></div>
+                <div class="future-box"><span>10 سال بعد</span><strong id="y10">0</strong></div>
+                <div class="future-box"><span>15 سال بعد</span><strong id="y15">0</strong></div>
+                <div class="future-box"><span>20 سال بعد</span><strong id="y20">0</strong></div>
             </div>
         </div>
     </div>
 
-    <h2 style="text-align: center; color: var(--dark); margin-bottom: 30px;">ماسٹر پلان: 15 سنہری مراحل</h2>
+    <h2 style="text-align: center; color: var(--dark); margin: 40px 0 30px 0;">انویسٹمنٹ بلو پرنٹ: 15 ماسٹر پوائنٹس</h2>
 
     <div class="step-container">
         <div class="step-card"><div class="step-num">1</div><h2>50 لاکھ کا بلو پرنٹ: ماسٹر پلان</h2><p>شریعہ کمپلائنٹ دولت سازی کے لیے ایک بہترین 40/30/30 حکمت عملی۔ یہ پلان سیفٹی، گروتھ اور پروفیشنل مینجمنٹ کا بہترین امتزاج ہے۔</p></div>
@@ -84,12 +91,12 @@
 
     <div class="calc-card" style="border-right: 6px solid var(--primary);">
         <h2 style="color:var(--primary)">خلاصہ اور نتیجہ</h2>
-        <p>پاکستان میں مہنگائی کے دور میں یہ 40/30/30 فارمولا آپ کی دولت کو محفوظ رکھنے اور بڑھانے کا سب سے اسمارٹ طریقہ ہے۔ جب آپ اوپر سے نیچے تک ان تمام مراحل کو پڑھتے ہیں، تو آپ کو اندازہ ہوتا ہے کہ کامیابی صرف پیسہ لگانے میں نہیں بلکہ اسے منظم طریقے سے چلانے میں ہے۔ آج ہی اپنے مالی سفر کا آغاز کریں!</p>
+        <p>پاکستان میں مہنگائی کے اس دور میں دولت کو صرف بچانا کافی نہیں، بلکہ اسے صحیح طریقے سے انویسٹ کرنا ضروری ہے۔ اس ویب سائٹ پر دیا گیا کیلکولیٹر اور 15 مراحل کا بلو پرنٹ آپ کو وہ تمام اوزار فراہم کرتا ہے جو ایک کامیاب سرمایہ کار بننے کے لیے ضروری ہیں۔ یاد رکھیں، مالی آزادی کا سفر ایک طویل سفر ہے، جس کا آغاز آج کے ایک صحیح فیصلے سے ہوتا ہے۔</p>
     </div>
 
     <div class="footer">
         <p>© 2026 پاک اسمارٹ انویسٹمنٹ | تمام حقوق محفوظ ہیں</p>
-        <p>نوٹ: سرمایہ کاری سے پہلے اپنے مالی مشیر سے ضرور مشورہ کریں۔</p>
+        <p>ڈسکلیمر: سرمایہ کاری میں خطرہ شامل ہوتا ہے۔ عمل درآمد سے پہلے ماہر سے مشورہ کریں۔</p>
     </div>
 </div>
 
@@ -100,22 +107,32 @@
         if (!amount || amount <= 0) return;
         
         document.getElementById('results').style.display = 'block';
+        
+        // 40/30/30 Logic
         const safe = amount * 0.4;
-        const index = amount * 0.3;
-        const equity = amount * 0.3;
+        const idx = amount * 0.3;
+        const eq = amount * 0.3;
 
         document.getElementById('safeNet').innerText = "Rs " + Math.round(safe).toLocaleString();
-        document.getElementById('indexFund').innerText = "Rs " + Math.round(index).toLocaleString();
-        document.getElementById('equityFund').innerText = "Rs " + Math.round(equity).toLocaleString();
+        document.getElementById('indexFund').innerText = "Rs " + Math.round(idx).toLocaleString();
+        document.getElementById('equityFund').innerText = "Rs " + Math.round(eq).toLocaleString();
 
+        // Future Value Logic (14% compounded)
+        const fv = (y) => Math.round(amount * Math.pow(1.14, y)).toLocaleString();
+        document.getElementById('y5').innerText = "Rs " + fv(5);
+        document.getElementById('y10').innerText = "Rs " + fv(10);
+        document.getElementById('y15').innerText = "Rs " + fv(15);
+        document.getElementById('y20').innerText = "Rs " + fv(20);
+
+        // Update Chart
         const ctx = document.getElementById('investChart').getContext('2d');
         if (myChart) myChart.destroy();
         myChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ['سیفٹی (40%)', 'انڈیکس (30%)', 'ایکویٹی (30%)'],
+                labels: ['سیفٹی', 'انڈیکس', 'ایکویٹی'],
                 datasets: [{
-                    data: [safe, index, equity],
+                    data: [safe, idx, eq],
                     backgroundColor: ['#1b5e20', '#c5a059', '#0a192f'],
                     borderWidth: 0
                 }]

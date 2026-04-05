@@ -14,13 +14,15 @@
         header h1 { margin: 0; font-size: 32px; color: var(--gold); text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
         header p { font-size: 18px; opacity: 0.9; margin-top: 10px; }
         .calc-section { background: var(--white); padding: 30px; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); margin-bottom: 50px; border: 1px solid #e0e0e0; }
-        .calc-header { text-align: center; border-bottom: 2px solid var(--bg); margin-bottom: 25px; padding-bottom: 15px; }
         input { width: 100%; max-width: 400px; padding: 15px; margin: 20px auto; display: block; border: 2px solid #ddd; border-radius: 15px; font-size: 22px; text-align: center; color: var(--primary); font-weight: bold; }
         #results { display: none; animation: slideUp 0.6s ease-out; }
         .res-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 25px 0; }
         .res-box { background: var(--dark); color: white; padding: 15px; border-radius: 15px; text-align: center; border-bottom: 4px solid var(--gold); }
         .res-box span { color: var(--gold); font-size: 14px; display: block; margin-bottom: 5px; }
-        .res-box strong { font-size: 18px; }
+        .future-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 25px; }
+        .future-box { background: #e8f5e9; padding: 15px; border-radius: 15px; text-align: center; border: 1px solid #c8e6c9; }
+        .future-box span { display: block; font-size: 14px; color: var(--primary); font-weight: bold; }
+        .future-box strong { font-size: 16px; color: var(--dark); display: block; margin-top: 5px; }
         .article-card { background: var(--white); padding: 40px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 30px; }
         .main-title { color: var(--primary); border-right: 8px solid var(--gold); padding-right: 15px; margin: 40px 0 20px 0; font-size: 26px; }
         .sub-title { color: var(--dark); background: #f0f4f0; padding: 10px 15px; border-radius: 10px; display: inline-block; margin-top: 25px; font-weight: bold; }
@@ -29,7 +31,6 @@
         table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         th { background: var(--primary); color: white; padding: 15px; text-align: center; }
         td { padding: 12px; border: 1px solid #eee; text-align: center; font-size: 15px; }
-        tr:nth-child(even) { background: #f9f9f9; }
         .highlight-box { background: #fffde7; border-right: 5px solid #fbc02d; padding: 20px; margin: 25px 0; border-radius: 10px; font-style: italic; }
         .expert-note { background: #e3f2fd; border-right: 5px solid #2196f3; padding: 20px; border-radius: 10px; margin: 25px 0; }
         .footer { text-align: center; padding: 50px 20px; color: #777; border-top: 1px solid #ddd; margin-top: 60px; }
@@ -45,22 +46,25 @@
 
 <div class="container">
     <div class="calc-section">
-        <div class="calc-header">
-            <h2 style="color:var(--primary); margin:0;">سمارٹ ایلوکیشن کیلکولیٹر</h2>
-            <p>اپنی کل رقم درج کریں اور 40/30/30 پلان کا جادو دیکھیں</p>
-        </div>
-        <input type="number" id="investAmount" placeholder="مثلاً 5000000" oninput="calculate()">
+        <h2 style="color:var(--primary); text-align: center;">سمارٹ ایلوکیشن کیلکولیٹر</h2>
+        <input type="number" id="investAmount" placeholder="رقم یہاں لکھیں (مثلاً 5000000)" oninput="calculate()">
         
         <div id="results">
-            <div style="max-width: 250px; margin: auto;"><canvas id="investChart"></canvas></div>
+            <div style="max-width: 200px; margin: auto;"><canvas id="investChart"></canvas></div>
             <div class="res-grid">
                 <div class="res-box"><span>سیفٹی نیٹ (40%)</span><strong id="safeNet">0</strong></div>
                 <div class="res-box"><span>انڈیکس فنڈ (30%)</span><strong id="indexFund">0</strong></div>
                 <div class="res-box"><span>ایکویٹی فنڈ (30%)</span><strong id="equityFund">0</strong></div>
             </div>
-            <div class="expert-note" style="text-align:center;">
-                <strong>میرا مشورہ:</strong> یہ تقسیم آپ کے سرمائے کو افراطِ زر سے محفوظ رکھنے اور طویل مدتی گروتھ کے لیے ڈیزائن کی گئی ہے۔
+
+            <h3 style="text-align: center; color: var(--primary); margin-top: 30px;">تخمینہ برائے مستقبل (مارکیٹ اتار چڑھاؤ کے ساتھ)</h3>
+            <div class="future-grid">
+                <div class="future-box"><span>5 سال بعد (تخمینہ)</span><strong id="y5">0</strong></div>
+                <div class="future-box"><span>10 سال بعد (تخمینہ)</span><strong id="y10">0</strong></div>
+                <div class="future-box"><span>15 سال بعد (تخمینہ)</span><strong id="y15">0</strong></div>
+                <div class="future-box"><span>20 سال بعد (تخمینہ)</span><strong id="y20">0</strong></div>
             </div>
+            <p style="font-size: 12px; text-align: center; margin-top: 10px; color: #666;">* یہ تخمینہ 12% سے 16% سالانہ کے درمیان ممکنہ اتار چڑھاؤ کو ظاہر کرتا ہے۔</p>
         </div>
     </div>
 
@@ -83,11 +87,7 @@
         <div class="table-container">
             <table>
                 <thead>
-                    <tr>
-                        <th>معاشی اشاریہ</th>
-                        <th>حالیہ شرح / قیمت</th>
-                        <th>معاشی اثرات</th>
-                    </tr>
+                    <tr><th>معاشی اشاریہ</th><th>حالیہ شرح / قیمت</th><th>معاشی اثرات</th></tr>
                 </thead>
                 <tbody>
                     <tr><td>سی پی آئی افراطِ زر (CPI)</td><td>6.2%</td><td>قوتِ خرید میں استحکام</td></tr>
@@ -101,60 +101,13 @@
 
         <h3 class="sub-title">اسلامک منی مارکیٹ فنڈز: پورٹ فولیو کا حفاظتی حصار (40% - 20 لاکھ)</h3>
         <p>اس پلان کا پہلا حصہ 40 فیصد یعنی 20 لاکھ روپے کیش فنڈز میں رکھنے کی تجویز دیتا ہے۔ یہ ایک 'لیکویڈیٹی بفر' (Liquidity Buffer) ہے جو ہنگامی حالات میں کام آتا ہے۔ اسلامک منی مارکیٹ فنڈز کا انتخاب اس لیے بہترین ہے کیونکہ یہ فنڈز قلیل مدتی شرعی تمسکات، جیسے کہ حکومتی سکوک اور بینک ڈپازٹس میں سرمایہ کاری کرتے ہیں۔ ان فنڈز میں رسک لیول 'کم سے کم' ہوتا ہے کیونکہ ان کی پختگی (Maturity) کی مدت بہت مختصر ہوتی ہے، جس کی وجہ سے شرح سود میں تبدیلی ان پر زیادہ اثر انداز نہیں ہوتی۔</p>
-        <p>اس حصے کا بنیادی مقصد منافع کمانا نہیں بلکہ سرمائے کو محفوظ رکھنا ہے، تاہم پاکستان میں موجودہ شرح سود کے مطابق یہ فنڈز 9 سے 10 فیصد تک سالانہ منافع دے رہے ہیں۔ میزان ڈیلی انکم پلان (MDIP-I) جیسے فنڈز نے دسمبر 2025 میں 9.05 فیصد کا منافع دیا ہے، جو اس بات کا ثبوت ہے کہ یہ حصہ خاموشی سے پورٹ فولیو میں قدر کا اضافہ کر رہا ہے۔</p>
-
-        <h4 style="color:var(--primary);">منی مارکیٹ فنڈز کی خصوصیات</h4>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>فنڈ کی قسم</th>
-                        <th>رسک لیول</th>
-                        <th>متوقع سالانہ ریٹرن</th>
-                        <th>بنیادی مقصد</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>Islamic Money Market</td><td>انتہائی کم</td><td>9% - 10.5%</td><td>سرمائے کا تحفظ</td></tr>
-                    <tr><td>Islamic Income Fund</td><td>کم سے درمیانہ</td><td>10% - 12%</td><td>مستحکم منافع</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h3 class="sub-title">اسلامک انڈیکس فنڈز: پاکستان کی معاشی ترقی میں شرکت (30% - 15 لاکھ)</h3>
-        <p>پلان کا دوسرا حصہ 30 فیصد رقم اسلامک انڈیکس فنڈ (KMI-30) میں لگانے کی سفارش کرتا ہے۔ یہ ایک 'غیر فعال' (Passive) سرمایہ کاری کی حکمتِ عملی ہے جس کا مطلب یہ ہے کہ پیسہ ان 30 بڑی کمپنیوں میں لگا دیا جاتا ہے جو کراچی میتھڈولوجی انڈیکس (KMI) کے شرعی معیار پر پورا اترتی ہیں۔ اس کا سب سے بڑا فائدہ یہ ہے کہ انفرادی اسٹاکس کے انتخاب کی فکر نہیں کرنی پڑتی بلکہ پوری مارکیٹ کی اوسط گروتھ حاصل ہوتی ہے۔ کے ایم آئی 30 انڈیکس نے دسمبر 2025 تک کے اعداد و شمار کے مطابق گزشتہ پانچ سالوں میں 201 فیصد سے زیادہ کی مجموعی نمو دکھائی ہے، جو کہ کسی بھی روایتی بچت کی اسکیم سے کہیں زیادہ ہے۔</p>
-
-        <h3 class="sub-title">ایکٹو اسلامک ایکویٹی فنڈز: الفا (Alpha) کی تلاش (30% - 15 لاکھ)</h3>
-        <p>تیسرا حصہ، جو کہ 30 فیصد یا 15 لاکھ روپے پر مشتمل ہے، 'ایگریسو ایکویٹی فنڈز' کے لیے مختص ہے۔ یہاں ایک پیشہ ور فنڈ مینیجر اپنی مہارت کا استعمال کرتے ہوئے ان اسٹاکس کا انتخاب کرتا ہے جن میں مارکیٹ سے زیادہ تیزی سے بڑھنے کی صلاحیت ہوتی ہے۔ اسے مالیاتی زبان میں 'الفا جنریشن' کہا جاتا ہے۔ یہ حصہ پورٹ فولیو کو وہ 'ایڈج' (Edge) دیتا ہے جو عام طور پر انڈیکس میں نہیں ملتا۔ فعال فنڈز کے مینیجرز سیمنٹ، فرٹیلائزر، اور ٹیکنالوجی جیسے سیکٹرز میں بہترین کمپنیوں کا بروقت انتخاب کرتے ہیں۔ میزان ڈائنامک ایسٹ ایلوکیشن فنڈ جیسے فنڈز نے حالیہ عرصے میں 27.95 فیصد تک کا ریٹرن دیا ہے، جو مارکیٹ کے اوسط سے کہیں بہتر ہے۔</p>
+        <p>میزان ڈیلی انکم پلان (MDIP-I) جیسے فنڈز نے دسمبر 2025 میں 9.05 فیصد کا منافع دیا ہے، جو اس بات کا ثبوت ہے کہ یہ حصہ خاموشی سے پورٹ فولیو میں قدر کا اضافہ کر رہا ہے۔</p>
 
         <h3 class="sub-title">ٹیکسیشن کا تزویراتی انجینئرنگ: فنانس ایکٹ 2024-25 کے اثرات</h3>
-        <p>پاکستان میں سرمایہ کاری کی کامیابی کا 50 فیصد انحصار اس بات پر ہے کہ کتنا ٹیکس بچایا جاتا ہے۔ حالیہ فنانس ایکٹ کے بعد ٹیکس کے ڈھانچے کو سمجھنا ضروری ہے، اور اس پلان میں "ٹیکس پالش" کا اضافہ درحقیقت اس پورے منصوبے کی ریڑھ کی ہڈی ہے۔</p>
-        <p><strong>فیلر بنام نان فیلر اور سلیب کا فرق:</strong> میوچل فنڈز سے حاصل ہونے والے منافع (Dividend) پر ٹیکس کی شرح اب اس بات پر منحصر ہے کہ فنڈ اپنی آمدنی کہاں سے حاصل کر رہا ہے۔ فیلر ہونے کی صورت میں ٹیکس کم ہوتا ہے، جبکہ نان فیلرز کے لیے یہ شرح دوگنی ہو جاتی ہے۔ 50 لاکھ روپے پر فیلر بن کر آپ لاکھوں روپے کا ٹیکس بچا سکتے ہیں۔</p>
-        
-        <p><strong>میاں بیوی کے نام پر تقسیم کی اہمیت:</strong> ہم رقم کو میاں بیوی کے درمیان تقسیم کرنے کی تجویز دیتے ہیں، جسے 'انکم اسپلٹنگ' (Income Splitting) کہا جاتا ہے۔ اس کا سب سے بڑا فائدہ یہ ہے کہ اگر کسی ایک فرد کی سالانہ آمدنی ایک خاص حد سے تجاوز کر جائے تو اس پر اضافی سرچارج لاگو ہوتا ہے۔ 50 لاکھ کو دو حصوں میں بانٹنے سے آپ اس بھاری ٹیکس سے بچ سکتے ہیں۔</p>
+        <p>پاکستان میں سرمایہ کاری کی کامیابی کا 50 فیصد انحصار اس بات پر ہے کہ کتنا ٹیکس بچایا جاتا ہے۔ حالیہ فنانس ایکٹ کے بعد ٹیکس کے ڈھانچے کو سمجھنا ضروری ہے، اور اس پلان میں "ٹیکس پالش" کا اضافہ درحقیقت اس پورے منصوبے کی ریڑھ کی ہڈی ہے۔ ہم رقم کو میاں بیوی کے درمیان تقسیم کرنے کی تجویز دیتے ہیں، جسے 'انکم اسپلٹنگ' (Income Splitting) کہا جاتا ہے۔ اس سے آپ بھاری ٹیکس سرچارج سے بچ سکتے ہیں۔</p>
 
         <h3 class="sub-title">ری بیلنسنگ اور 10 فیصد کا اصول: سائنسی بنیادیں</h3>
-        <p>اس پلان کا سب سے اہم ڈسپلن 'ری بیلنسنگ' ہے، جسے اکثر سرمایہ کار نظر انداز کر دیتے ہیں۔ ہم ہر 6 ماہ بعد 10 فیصد کی تبدیلی پر ایڈجسٹمنٹ کا مشورہ دیتے ہیں، جسے 'تھریش ہولڈ ری بیلنسنگ' کہا جاتا ہے۔ یہ طریقہ کار پورٹ فولیو کے خطرے کو کنٹرول میں رکھتا ہے اور 'مہنگا بیچنے اور سستا خریدنے' کے سنہری اصول پر خود بخود عمل درآمد کراتا ہے۔</p>
-        <p><strong>پورٹ فولیو ڈرفٹ (Portfolio Drift) کی وضاحت:</strong> فرض کریں اسٹاک مارکیٹ میں تیزی آتی ہے اور اسٹاک کا وزن بڑھ جاتا ہے۔ 10 فیصد اصول کے تحت، اس اضافی منافع کو نکال کر دوبارہ کیش فنڈ میں ڈال دینا چاہیے تاکہ اصل 40/30/30 کا توازن بحال رہے۔ ری بیلنسنگ کے ذریعے طویل مدتی ریٹرن میں 1 سے 2 فیصد سالانہ کا اضافہ ممکن ہے۔</p>
-
-        <h3 class="sub-title">کامیابی کے تزویراتی قدم اور ناکامی کے نفسیاتی گڑھے</h3>
-        <p>سرمایہ کاری میں کامیابی کا 20 فیصد پلان ہے اور 80 فیصد 'صبر اور ڈسپلن' ہے۔ انسانی دماغ قدرتی طور پر ڈر اور لالچ کے زیرِ اثر فیصلے کرتا ہے، جس سے بچنا ضروری ہے۔</p>
-        
-        <p><strong>کامیابی کی طرف قدم:</strong><br>
-        * مرحلہ وار داخلہ (Staged Entry): سارا پیسہ ایک دن میں نہ لگانا ٹائمنگ کے خطرے کو ختم کر دیتا ہے۔<br>
-        * پانچ سال کا افق (Time Horizon): تاریخ گواہ ہے کہ پاکستان اسٹاک ایکسچینج میں 5 سال کا عرصہ دینے والے کو نقصان کا احتمال نہ ہونے کے برابر رہا۔<br>
-        * انتظامی کمپنیوں کا تنوع (AMC Diversification): میزان اور ایم سی بی جیسی دو مختلف کمپنیوں کا انتخاب ایک حفاظتی وال ہے۔</p>
-
-        <p><strong>ناکامی کی طرف لے جانے والے عوامل:</strong><br>
-        * پینک سیلنگ (Panic Selling): یہ غیر حقیقی نقصان کو حقیقی نقصان میں بدل دیتی ہے۔<br>
-        * ایمرجنسی فنڈ کی عدم موجودگی: اسی لیے 2 سے 3 لاکھ کا 'بفر' رکھنا ضروری ہے۔<br>
-        * غیر ضروری ٹریڈنگ: بار بار فنڈز بدلنا کمپاؤنڈنگ کی طاقت کو ختم کر دیتا ہے۔</p>
-
-        <h3 class="sub-title">ڈیجیٹل ٹولز اور نفاذ کا طریقہ کار</h3>
-        <p>پاکستان میں میوچل فنڈز میں سرمایہ کاری اب مکمل طور پر ڈیجیٹل ہو چکی ہے۔ ال میزان کی ایپ اور ایم سی بی کی 'iSave' ایپ اس وقت بہترین ہیں۔ ان ایپس کے ذریعے ایک فنڈ سے دوسرے فنڈ میں رقم منتقل (Conversion) کرنا سیکنڈوں کا کام ہے، جو ری بیلنسنگ کے عمل کو انتہائی آسان بنا دیتا ہے۔</p>
-
-        <h3 class="sub-title">سونے اور میوچل فنڈز کا تقابلی جائزہ</h3>
-        <p>اگرچہ سونا ایک محفوظ اثاثہ ہے، لیکن یہ کوئی 'پیداواری اثاثہ' نہیں ہے۔ میوچل فنڈز میں آپ ان کمپنیوں کے مالک بنتے ہیں جو منافع کماتی ہیں اور ڈیویڈنڈ دیتی ہیں۔ ہمارا 40/30/30 پلان سونے کے مقابلے میں زیادہ متوازن ہے کیونکہ یہ نقد منافع کی روانی (Cash Flow) کو برقرار رکھتا ہے۔</p>
+        <p>اس پلان کا سب سے اہم ڈسپلن 'ری بیلنسنگ' ہے، جسے اکثر سرمایہ کار نظر انداز کر دیتے ہیں۔ ہم ہر 6 ماہ بعد 10 فیصد کی تبدیلی پر ایڈجسٹمنٹ کا مشورہ دیتے ہیں۔ اس سے نہ صرف آپ کا منافع 'بک' ہو جائے گا بلکہ آپ کا اصل 40/30/30 کا توازن بھی بحال رہے گا۔</p>
 
         <h3 class="sub-title">حتمی تجزيه اور تزویراتی فیصلہ</h3>
         <p>میرا تجزیہ یہ ہے کہ 50 لاکھ روپے کا 40/30/30 پلان علمی، شرعی اور معاشی لحاظ سے ایک "بہترین" ڈھانچہ ہے۔ اس میں سب سے بڑا خطرہ مارکیٹ نہیں بلکہ سرمایہ کار کا اپنا رویہ ہے۔ اگر آپ نے 2024-25 کے ٹیکس قوانین کو مدنظر رکھتے ہوئے میاں بیوی کے اکاؤنٹس کے ذریعے سرمایہ کاری کی اور 6 ماہ کے ری بیلنسنگ اصول پر عمل کیا، تو یہ پلان آپ کو اگلے 5 سالوں میں بہترین نتائج دے گا۔</p>
@@ -180,12 +133,28 @@
         const amount = document.getElementById('investAmount').value;
         if (!amount || amount <= 0) return;
         document.getElementById('results').style.display = 'block';
+        
         const safe = amount * 0.4;
         const idx = amount * 0.3;
         const eq = amount * 0.3;
+        
         document.getElementById('safeNet').innerText = "Rs " + Math.round(safe).toLocaleString();
         document.getElementById('indexFund').innerText = "Rs " + Math.round(idx).toLocaleString();
         document.getElementById('equityFund').innerText = "Rs " + Math.round(eq).toLocaleString();
+        
+        // Future Projection with Volatility (12% to 16% Range)
+        const calcFV = (yrs, rate) => amount * Math.pow(1 + rate, yrs);
+        const formatRange = (yrs) => {
+            const low = Math.round(calcFV(yrs, 0.12)).toLocaleString();
+            const high = Math.round(calcFV(yrs, 0.16)).toLocaleString();
+            return "Rs " + low + " - " + high;
+        };
+
+        document.getElementById('y5').innerText = formatRange(5);
+        document.getElementById('y10').innerText = formatRange(10);
+        document.getElementById('y15').innerText = formatRange(15);
+        document.getElementById('y20').innerText = formatRange(20);
+        
         const ctx = document.getElementById('investChart').getContext('2d');
         if (myChart) myChart.destroy();
         myChart = new Chart(ctx, {

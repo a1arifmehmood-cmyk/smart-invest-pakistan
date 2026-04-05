@@ -3,75 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پاک اسمارٹ انویسٹمنٹ - فائنل ورژن</title>
+    <title>اسمارٹ انویسٹمنٹ پاکستان - 50 لاکھ بلو پرنٹ</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        :root { --primary: #1b5e20; --bg: #f0f4f0; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 15px; text-align: center; }
-        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        input { width: 85%; padding: 12px; margin: 10px 0; border: 2px solid #ddd; border-radius: 8px; font-size: 18px; }
-        button { background: var(--primary); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 20px; }
-        .chart-box { width: 100%; max-width: 300px; margin: 20px auto; }
-        .blueprint-img { width: 100%; border-radius: 10px; margin-top: 25px; border: 1px solid #ddd; display: block; }
-        .future-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .card { background: var(--primary); color: white; padding: 10px; border-radius: 8px; font-size: 12px; }
-        h3 { color: var(--primary); margin-top: 30px; border-top: 2px solid #eee; padding-top: 20px; }
+        :root { --primary: #1b5e20; --gold: #c5a059; --dark: #0a192f; --bg: #f4f7f4; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); margin: 0; padding: 0; color: #333; line-height: 1.6; }
+        .container { max-width: 800px; margin: auto; padding: 20px; }
+        
+        /* Header Style */
+        .main-header { background: var(--dark); color: white; padding: 30px 10px; border-bottom: 4px solid var(--gold); border-radius: 0 0 20px 20px; margin-bottom: 30px; }
+        .main-header h1 { margin: 0; font-size: 28px; color: var(--gold); }
+
+        /* Calculator Card */
+        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 30px; border-top: 5px solid var(--primary); }
+        input { width: 90%; padding: 15px; margin: 15px 0; border: 2px solid #ddd; border-radius: 10px; font-size: 18px; text-align: center; }
+        button { background: var(--primary); color: white; border: none; padding: 18px; width: 100%; border-radius: 10px; font-weight: bold; font-size: 18px; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #134617; transform: translateY(-2px); }
+
+        /* Slider Section */
+        .slider-container { position: relative; overflow: hidden; background: var(--dark); color: white; border-radius: 20px; padding: 40px 20px; margin-bottom: 40px; border: 2px solid var(--gold); min-height: 450px; display: flex; align-items: center; }
+        .slides { display: flex; transition: transform 0.5s ease-in-out; width: 1500%; /* For 15 slides */ }
+        .slide { width: 6.66%; /* 100/15 */ padding: 0 20px; box-sizing: border-box; flex-shrink: 0; text-align: center; }
+        .slide h2 { color: var(--gold); font-size: 24px; margin-bottom: 20px; border-bottom: 1px solid rgba(197, 160, 89, 0.3); padding-bottom: 10px; }
+        .slide p { font-size: 17px; color: #e0e0e0; }
+        .slide-tag { display: inline-block; background: var(--gold); color: var(--dark); padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 12px; margin-bottom: 15px; }
+
+        /* Slider Nav */
+        .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(197, 160, 89, 0.8); color: var(--dark); border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 24px; z-index: 10; display: flex; align-items: center; justify-content: center; }
+        .prev { right: 10px; } .next { left: 10px; }
+        .dots { text-align: center; margin-top: -25px; margin-bottom: 30px; position: relative; z-index: 5; }
+        .dot { height: 10px; width: 10px; margin: 0 3px; background-color: #555; border-radius: 50%; display: inline-block; cursor: pointer; transition: 0.3s; }
+        .dot.active { background-color: var(--gold); width: 25px; border-radius: 10px; }
+
+        /* Grid for Results */
+        .result-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-top: 25px; }
+        .res-card { background: var(--dark); color: white; padding: 15px; border-radius: 12px; border-bottom: 3px solid var(--gold); }
+        .res-card span { display: block; font-size: 12px; color: var(--gold); margin-bottom: 5px; }
+        .res-card strong { font-size: 16px; }
+
+        .footer-note { font-size: 14px; color: #666; margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2 style="color:var(--primary)">اسمارٹ انویسٹمنٹ کیلکولیٹر</h2>
-    <p>اپنی کل رقم درج کریں:</p>
-    <input type="number" id="amount" placeholder="مثلاً 5000000">
-    <button onclick="updateAll()">پلان اور گراف دیکھیں</button>
-
-    <div id="showResults" style="display:none">
-        <div class="chart-box"><canvas id="myChart"></canvas></div>
-        
-        <div class="future-grid">
-            <div class="card">5 سال بعد<br><strong id="y5">0</strong></div>
-            <div class="card">10 سال بعد<br><strong id="y10">0</strong></div>
-            <div class="card">20 سال بعد<br><strong id="y20">0</strong></div>
-        </div>
-
-        <h3>انویسٹمنٹ بلو پرنٹ (تفصیل):</h3>
-        <img src="Screenshot_20260404-230236.png" class="blueprint-img" alt="Investment Blueprint">
+<header class="main-header">
+    <div class="container">
+        <h1>پاک اسمارٹ انویسٹمنٹ</h1>
+        <p>شریعہ کمپلائنٹ دولت سازی کا مکمل نقشہ</p>
     </div>
+</header>
+
+<div class="container">
+    <div class="card">
+        <h2 style="color:var(--primary); margin-top:0;">انویسٹمنٹ کیلکولیٹر</h2>
+        <p>اپنی کل رقم (Lakhs میں) درج کریں اور 40/30/30 کا جادو دیکھیں:</p>
+        <input type="number" id="investAmount" placeholder="مثلاً 5000000" oninput="calculate()">
+        
+        <div id="results" style="display:none;">
+            <div style="max-width: 300px; margin: 20px auto;">
+                <canvas id="investChart"></canvas>
+            </div>
+            <div class="result-grid">
+                <div class="res-card"><span>سیفٹی نیٹ (40%)</span><strong id="safeNet">0</strong></div>
+                <div class="res-card"><span>انڈیکس فنڈ (30%)</span><strong id="indexFund">0</strong></div>
+                <div class="res-card"><span>ایکویٹی فنڈ (30%)</span><strong id="equityFund">0</strong></div>
+            </div>
+        </div>
+    </div>
+
+    <h2 style="text-align: right; color: var(--dark); padding-right: 10px;">انوسٹمنٹ بلو پرنٹ (15 ماسٹر سلائیڈز)</h2>
+    <div class="slider-container">
+        <button class="nav-btn prev" onclick="moveSlide(1)">&#10095;</button>
+        <button class="nav-btn next" onclick="moveSlide(-1)">&#10094;</button>
+        
+        <div class="slides" id="slideTrack">
+            <div class="slide">
+                <span class="slide-tag">سلائیڈ 1/15</span>
+                <h2>50 لاکھ کا بلو پرنٹ: ماسٹر پلان</h2>
+                <p>شریعہ کمپلائنٹ دولت سازی کے لیے ایک بہترین 40/30/30 حکمت عملی۔ یہ پلان سیفٹی، گروتھ اور پروفیشنل مینجمنٹ کا بہترین امتزاج ہے۔</p>
+            </div>
+            <div class="slide">
+                <span class="slide-tag">سلائیڈ 2/15</span>
+                <h2>بیلنس: مالی پریشانی کا حل</h2>
+                <p>آپ نہ تو مکمل طور پر محفوظ کھیل رہے ہیں اور نہ ہی حد سے زیادہ خطرہ لے رہے ہیں۔ آپ دونوں کام ایک ساتھ اور منظم طریقے سے کر رہے ہیں۔</p>
+            </div>
+            <div class="slide">
+                <span class="slide-tag">سلائیڈ 3/15</span>
+                <h2>آپ کے 50 لاکھ کی ساخت</h2>
+                <p>40% (20 لاکھ): سیفٹی نیٹ۔ 30% (15 لاکھ): مارکیٹ الائنمنٹ۔ 30% (15 لاکھ): ایگریسو گروتھ۔</p>
+            </div>
+            <div class="slide">
+                <span class="slide-tag">سلائیڈ 4/15</span>
+                <h2>پہلا ستون: سیفٹی نیٹ (40%)</h2>
+                <p>20 لاکھ روپے اسلامک منی مارکیٹ فنڈ میں رکھیں۔ اس کا مقصد اصل سرمائے کا تحفظ اور روزانہ یا ماہانہ منافع حاصل کرنا ہے۔</p>
+            </div>
+            <div class="slide">
+                <span class="slide-tag">سلائیڈ 5/15</span>
+                <h2>دوسرا ستون: مارکیٹ الائنمنٹ (30%)</h2>
+                <p>15 لاکھ روپے اسلامک انڈیکس فنڈ (KMI-30) میں۔ یہ فنڈ پاکستان کی ٹاپ 30 شریعہ کمپلائنٹ کمپنیوں میں سرمایہ کاری کرتا ہے۔</p>
+            </div>
+            <div class="slide">
+                <span class="slide-tag">سلائیڈ 6/15</span>
+                <h2>تیسرا ستون: ایگریسو گروتھ (30%)</h2>
+                <p>15 لاکھ روپے ایکٹو اسلامک ایکویٹی فنڈ میں۔ یہاں پروفیشنل فنڈ مینیجر مارکیٹ سے بہتر منافع کے لیے بہترین کمپنیوں کا انتخاب کرتا ہے۔</p>
+            </div>
+            <div class="slide">
+                <span class="slide-tag">سلائیڈ 7/15</span>
+                <h2>گڈ سے پرفیکٹ کی طرف سفر</h2>
+                <p>40/30/30 کی تقسیم صرف گاڑی ہے۔ چار ایگزیکیوشن رولز اس کا انجن ہیں جو آپ کے منافع کو بہترین بناتے ہیں۔</p>
+            </div>
+            <div class="slide">
+                <span class="slide-tag">سلائیڈ 8/15</span>
+                <h2>آپٹیمائزیشن 1: بتدریج انٹری</h2>
+                <p>کبھی بھی سارا پیسہ ایک دن میں نہ لگائیں۔ 50% آج لگائیں اور باقی 50% اگلے 2 سے 3 ماہ میں قسطوں میں لگائیں۔</p>
+            </div>
+            <div class="slide">
+                <span class="slide-tag">سلائیڈ 9/15</span>
+                <h2>آپٹیمائزیشن 2: ری بیلنسنگ انجن</h2>
+                <p>ہر 6 ماہ بعد جائزہ لیں۔ اگر کوئی حصہ 10% سے زیادہ بڑھ جائے تو منافع نکال کر دوسرے حصے میں ڈال دیں تاکہ توازن برقرار رہے۔</p>
+            </div>
+            <div class="slide">
+                <span class="slide-tag">سلائیڈ 10/15</span>
+                <h2>آپٹیمائزیشن 3: ٹیکس شیلڈ</h2>
+                <p>سرمایہ کاری کو میاں بیوی کے درمیان تقسیم کریں تاکہ ٹیکس بریکٹ کی کارکردگی بہتر ہو اور آپ کو زیادہ منافع مل سکے۔</p>
+            </div>
+            <div class="slide">
+                <span class="slide-tag">سلائیڈ 11/15</span>
+                <h2>آپٹیمائزیشن 4: ادارے کی تقسیم</h2>
+                <p>سارا پیسہ ایک ہی ادارے (AMC) میں نہ رکھیں۔ اسے دو بڑے اداروں (مثلاً الیزان اور ایم سی بی عارف حبیب) میں تقسیم کریں۔</p>
+            </div>
+            <div class="slide">
+                <span class="slide-tag">سلائیڈ 12/15</span>
+                <h2>گولڈن رول: 5 سال کا صبر</h2>
+                <p>سرمایہ کاری کے اصل پیسے کو 5 سال تک ہاتھ نہ لگائیں۔ حقیقی دولت 20% حکمت عملی اور 80% صبر سے بنتی ہے۔</p>
+            </div>
+            <div class="slide">
+                <span class="slide-tag">سلائیڈ 13/15</span>
+                <h2>سمارٹ پالش: فیس چیک کریں</h2>
+                <p>یقینی بنائیں کہ فنڈ مینیجمنٹ فیس 1.5% سے 2% کے درمیان ہو۔ اس سے زیادہ فیس آپ کے منافع کو کھا سکتی ہے۔</p>
+            </div>
+            <div class="slide">
+                <span class="slide-tag">سلائیڈ 14/15</span>
+                <h2>10 منٹ میں عمل درآمد</h2>
+                <p>پہلے ایمرجنسی فنڈ الگ کریں، پھر کسی بڑے میوچل فنڈ ہاؤس سے رابطہ کریں اور انہیں یہ بلو پرنٹ تھما دیں۔</p>
+            </div>
+            <div class="slide">
+                <span class="slide-tag">سلائیڈ 15/15</span>
+                <h2>آخری فیصلہ: اب آپ کی باری</h2>
+                <p>یہ پلان سادہ، محفوظ اور انتہائی بہتر بنایا گیا ہے۔ اب صرف آپ کے عمل درآمد کی دیر ہے۔ آج ہی شروعات کریں!</p>
+            </div>
+        </div>
+    </div>
+    <div class="dots" id="dotsContainer"></div>
+
+    <div class="card" style="text-align: right; border-top-color: var(--gold);">
+        <h2>تفصیلی گائیڈ: پاکستان میں محفوظ سرمایہ کاری</h2>
+        <p>پاکستان میں مہنگائی کے دور میں صرف بچت کرنا کافی نہیں ہے، بلکہ اپنے پیسے کو کام پر لگانا ضروری ہے۔ یہ 40/30/30 فارمولا خاص طور پر ان لوگوں کے لیے بنایا گیا ہے جو اپنے 50 لاکھ روپے کو شریعت کے مطابق بڑھانا چاہتے ہیں۔ اس میں 20 لاکھ روپے کو منی مارکیٹ فنڈز میں رکھنا آپ کو فوری ضرورت کے وقت رقم نکالنے کی سہولت دیتا ہے، جبکہ باقی 30 لاکھ روپے اسٹاک مارکیٹ کی گروتھ سے فائدہ اٹھاتے ہیں۔ اس حکمت عملی پر عمل کر کے آپ ایک مستحکم مالی مستقبل کی بنیاد رکھ سکتے ہیں۔</p>
+    </div>
+
+    <p class="footer-note">نوٹ: یہ صرف تعلیمی مقصد کے لیے ہے، سرمایہ کاری سے پہلے اپنے مالی مشیر سے رجوع کریں۔</p>
 </div>
 
 <script>
-let chart = null;
-function updateAll() {
-    let val = document.getElementById('amount').value;
-    if(!val || val <= 0) { alert("براہ کرم درست رقم درج کریں"); return; }
-    
-    document.getElementById('showResults').style.display = 'block';
-    
-    // 14% سالانہ منافع کے حساب سے تخمینہ
-    const calc = (y) => Math.round(val * Math.pow(1.14, y)).toLocaleString();
-    document.getElementById('y5').innerText = "Rs " + calc(5);
-    document.getElementById('y10').innerText = "Rs " + calc(10);
-    document.getElementById('y20').innerText = "Rs " + calc(20);
+    // Slider Logic
+    let currentSlide = 0;
+    const totalSlides = 15;
+    const track = document.getElementById('slideTrack');
+    const dotsContainer = document.getElementById('dotsContainer');
 
-    // گراف اپ ڈیٹ کریں
-    const ctx = document.getElementById('myChart').getContext('2d');
-    if(chart) chart.destroy();
-    chart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: ['سیف فنڈ (40%)', 'انڈیکس (30%)', 'اسٹاک (30%)'],
-            datasets: [{ 
-                data: [val*0.4, val*0.3, val*0.3], 
-                backgroundColor: ['#2e7d32', '#43a047', '#fb8c00'] 
-            }]
-        },
-        options: { plugins: { legend: { position: 'bottom', rtl: true } } }
-    });
-    
-    // اسکرول کر کے نتائج دکھائیں
-    window.scrollTo({ top: 500, behavior: 'smooth' });
-}
+    for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        dot.onclick = () => goToSlide(i);
+        dotsContainer.appendChild(dot);
+    }
+
+    function moveSlide(direction) {
+        currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+        updateSlider();
+    }
+
+    function goToSlide(index) {
+        currentSlide = index;
+        updateSlider();
+    }
+
+    function updateSlider() {
+        track.style.transform = `translateX(${currentSlide * (100 / totalSlides)}%)`;
+        const dots = document.querySelectorAll('.dot');
+        dots.forEach((dot, index) => {
+            dot.className = 'dot' + (index === currentSlide ? ' active' : '');
+        });
+    }
+
+    // Calculator Logic
+    let myChart = null;
+    function calculate() {
+        const amount = document.getElementById('investAmount').value;
+        if (!amount || amount <= 0) return;
+        
+        document.getElementById('results').style.display = 'block';
+        const safe = amount * 0.4;
+        const index = amount * 0.3;
+        const equity = amount * 0.3;
+
+        document.getElementById('safeNet').innerText = "Rs " + Math.round(safe).toLocaleString();
+        document.getElementById('indexFund').innerText = "Rs " + Math.round(index).toLocaleString();
+        document.getElementById('equityFund').innerText = "Rs " + Math.round(equity).toLocaleString();
+
+        const ctx = document.getElementById('investChart').getContext('2d');
+        if (myChart) myChart.destroy();
+        myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['سیفٹی', 'انڈیکس', 'ایکویٹی'],
+                datasets: [{
+                    data: [safe, index, equity],
+                    backgroundColor: ['#1b5e20', '#c5a059', '#0a192f'],
+                    borderWidth: 0
+                }]
+            },
+            options: { plugins: { legend: { display: false } } }
+        });
+    }
 </script>
 
 </body>

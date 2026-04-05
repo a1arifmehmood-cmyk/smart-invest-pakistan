@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پاک اسمارٹ انویسٹمنٹ - 40/30/30 پلان</title>
+    <style>
+        :root { --primary: #1b5e20; --secondary: #2e7d32; --accent: #e67e22; --bg: #f0f4f0; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: var(--bg); margin: 0; padding: 15px; color: #333; line-height: 1.6; }
+        .container { max-width: 700px; margin: auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 8px solid var(--primary); }
+        h1 { color: var(--primary); font-size: 22px; text-align: center; margin-bottom: 5px; }
+        .subtitle { text-align: center; color: #666; font-size: 14px; margin-bottom: 25px; }
+        .input-group { background: #f9f9f9; padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #eee; }
+        label { display: block; font-weight: bold; margin-bottom: 10px; }
+        input { width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 20px; box-sizing: border-box; transition: 0.3s; text-align: center; color: var(--primary); }
+        input:focus { border-color: var(--primary); outline: none; }
+        button { background: var(--primary); color: white; border: none; padding: 18px; font-size: 18px; border-radius: 10px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; }
+        button:hover { background: var(--secondary); }
+        .result-card { display: none; margin-top: 25px; animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: #fff; }
+        th, td { border: 1px solid #eee; padding: 12px; text-align: right; font-size: 14px; }
+        th { background: #f1f8e9; color: var(--primary); }
+        .highlight { color: var(--accent); font-weight: bold; font-size: 16px; }
+        .tips { background: #fff3e0; border-right: 5px solid var(--accent); padding: 15px; margin-top: 20px; border-radius: 8px; font-size: 14px; }
+        .tips h4 { margin: 0 0 10px 0; color: #d35400; }
+        .footer-note { font-size: 11px; color: #999; margin-top: 30px; border-top: 1px solid #eee; padding-top: 15px; text-align: justify; }
+        .badge { background: #e8f5e9; color: #2e7d32; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>پاکستان اسمارٹ انویسٹمنٹ پورٹ فولیو</h1>
+    <p class="subtitle">محفوظ، گروتھ اور بیلنسڈ پلان (40/30/30)</p>
+
+    <div class="input-group">
+        <label>اپنی کل سرمایہ کاری کی رقم لکھیں (روپے):</label>
+        <input type="number" id="investAmount" placeholder="مثلاً: 5000000" />
+        <button onclick="processPlan()">پلان تیار کریں</button>
+    </div>
+
+    <div id="results" class="result-card">
+        <div style="background: #e3f2fd; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+            <strong>اہم نوٹ:</strong> آپ کے پلان کے مطابق <strong>2-3 لاکھ روپے</strong> ایمرجنسی فنڈ کے طور پر الگ رکھیں، اسے انویسٹ نہ کریں۔
+        </div>
+
+        <h3>تقسیم کا نقشہ:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>فنڈ کی قسم</th>
+                    <th>رقم (روپے)</th>
+                    <th>مجوزہ ادارہ (AMC)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Islamic Money Market <span class="badge">40%</span><br><small>حفاظت اور نقد رقم</small></td>
+                    <td id="cashVal" class="highlight">0</td>
+                    <td>Meezan / MCB / NBP</td>
+                </tr>
+                <tr>
+                    <td>Islamic Index Fund <span class="badge">30%</span><br><small>مارکیٹ کے ساتھ گروتھ</small></td>
+                    <td id="indexVal" class="highlight">0</td>
+                    <td>KMI-30 Index Funds</td>
+                </tr>
+                <tr>
+                    <td>Aggressive Equity <span class="badge">30%</span><br><small>مارکیٹ سے زیادہ منافع</small></td>
+                    <td id="equityVal" class="highlight">0</td>
+                    <td>Stock Funds</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="tips">
+            <h4>💡 عمل درآمد کا طریقہ (Staged Entry):</h4>
+            <ul>
+                <li><strong>آج لگائیں:</strong> <span id="todayVal">0</span> روپے (کل رقم کا 50%)</li>
+                <li><strong>باقی رقم:</strong> اگلے 2 سے 3 ماہ میں تھوڑی تھوڑی کر کے لگائیں۔</li>
+                <li><strong>ٹیکس بچت:</strong> اگر میاں بیوی دونوں کے نام پر اکاؤنٹ کھولیں تو ٹیکس کم کٹے گا۔</li>
+                <li><strong>ری بیلنسنگ:</strong> ہر 6 ماہ بعد چیک کریں، اگر کوئی فنڈ 10% بڑھ جائے تو منافع نکال کر کیش فنڈ میں ڈالیں۔</li>
+            </ul>
+        </div>
+
+        <p style="font-size: 13px; color: #555;"><strong>ٹیکس نوٹ:</strong> منافع پر فائلر کے لیے تقریباً 15% اور نان فائلر کے لیے 30% تک ٹیکس کٹ سکتا ہے۔ (سرکاری قوانین کے مطابق بدل سکتا ہے)</p>
+    </div>
+
+    <div class="footer-note">
+        <strong>قانونی ڈسکلیمر:</strong> یہ کیلکولیٹر صرف تعلیمی اور معلوماتی مقاصد کے لیے ہے۔ ہم کوئی رجسٹرڈ انویسٹمنٹ ایڈوائزر نہیں ہیں۔ میوچل فنڈز میں سرمایہ کاری مارکیٹ کے رسک کے تابع ہوتی ہے۔ ماضی کی کارکردگی مستقبل کے نتائج کی ضمانت نہیں ہے۔ کسی بھی فیصلے سے پہلے اپنے مالیاتی مشیر سے مشورہ ضرور کریں۔
+    </div>
+</div>
+
+<script>
+    function processPlan() {
+        let amount = document.getElementById('investAmount').value;
+        if (amount < 10000) {
+            alert("براہ کرم کم از کم 10,000 روپے درج کریں۔");
+            return;
+        }
+
+        // Calculations based on 40/30/30
+        let cash = amount * 0.40;
+        let index = amount * 0.30;
+        let equity = amount * 0.30;
+        let today = amount * 0.50;
+
+        // Display results with formatting
+        document.getElementById('cashVal').innerText = Math.round(cash).toLocaleString();
+        document.getElementById('indexVal').innerText = Math.round(index).toLocaleString();
+        document.getElementById('equityVal').innerText = Math.round(equity).toLocaleString();
+        document.getElementById('todayVal').innerText = Math.round(today).toLocaleString();
+
+        document.getElementById('results').style.display = 'block';
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
